@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Temperature</title>
+  </head>
+  <body>
+     <div class="card-container"> 
+    <div class="card">
+    <h1>Temperature Converter</h1>
+
+    <form>
+      <label for="tempInput">Temperature:</label>
+      <input type="text" id="tempInput" name="tempInput">
+      <br><br>
+
+      <label>Unit:</label>
+      <input type="radio" id="celsius" name="unit" value="celsius" checked>
+      <label for="celsius">Celsius</label>
+      <input type="radio" id="fahrenheit" name="unit" value="fahrenheit">
+      <label for="fahrenheit">Fahrenheit</label>
+      <input type="radio" id="kelvin" name="unit" value="kelvin">
+      <label for="kelvin">Kelvin</label>
+      <br><br>
+
+      <button type="button" id="convertBtn">Convert</button>
+      <p id="output">The converted temperature will appear here.</p>
+    </form></div></div>
+    <br><br>
+
+  
+<style type="text/css">
+.card-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+
+}
+
+.card {
+  width: 50%;
+  padding: 20px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+  text-align: center;
+
+}
+</style>
+    <script>
+      const convertBtn = document.querySelector("#convertBtn");
+      const tempInput = document.querySelector("#tempInput");
+      const unitRadios = document.querySelectorAll('input[name="unit"]');
+      const output = document.querySelector("#output");
+
+      convertBtn.addEventListener("click", function() {
+        const inputTemp = parseFloat(tempInput.value);
+        if (isNaN(inputTemp)) {
+          alert("Please enter a valid temperature.");
+          return;
+        }
+
+        let unit = "";
+        for (const radio of unitRadios) {
+          if (radio.checked) {
+            unit = radio.value;
+            break;
+          }
+        }
+
+        let convertedTemp;
+        if (unit === "celsius") {
+          convertedTemp = (inputTemp * 9/5) + 32;
+          output.innerHTML = `${convertedTemp.toFixed(2)} &#8457;`;
+        } else if (unit === "fahrenheit") {
+          convertedTemp = (inputTemp - 32) * 5/9;
+          output.innerHTML = `${convertedTemp.toFixed(2)} &#8451;`;
+        } else if (unit === "kelvin") {
+          convertedTemp = inputTemp + 273.15;
+          output.innerHTML = `${convertedTemp.toFixed(2)} K`;
+        }
+      });
+    </script>
+  </body>
+</html>
